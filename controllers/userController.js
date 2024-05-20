@@ -34,6 +34,7 @@ module.exports.login = (req, res, next) => {
     });
 };
 
+
 module.exports.postCategory = (req, res, next) => {
   console.log('Inside category function');
   var category = new Category();
@@ -95,9 +96,11 @@ module.exports.getBlogById = (req, res, next) => {
   Blog.findById(blogId)
     .then(blog => {
       if (!blog) {
-        return res.status(404).json({ message: 'Blog not found' });
+         res.status(404).json({ message: 'Blog not found' });
       }
-      res.status(200).json(blog);
+      else {
+         res.status(200).json(blog);
+      }
     })
     .catch(err => {
       console.error(err);
@@ -110,9 +113,11 @@ module.exports.getCategoryById = (req, res, next) => {
   Category.findById(categoryId)
     .then(category => {
       if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
+         res.status(404).json({ message: 'Category not found' });
       }
-      res.status(200).json(category);
+      else {
+         res.status(200).json(category);
+      }
     })
     .catch(err => {
       console.error(err);
@@ -125,9 +130,11 @@ module.exports.deleteBlogById = (req, res, next) => {
   Blog.findByIdAndDelete(blogId)
     .then(blog => {
       if (!blog) {
-        return res.status(404).json({ message: 'Blog not found' });
+         res.status(404).json({ message: 'Blog not found' });
       }
-      res.status(200).json({ message: 'Blog deleted successfully' });
+      else {
+        res.status(200).json({ message: 'Blog deleted successfully' });
+      }
     })
     .catch(err => {
       console.error(err);
@@ -145,9 +152,11 @@ module.exports.editBlogById = async (req, res, next) => {
 
     const updatedBlog = await Blog.findByIdAndUpdate(blogId, updateFields, { new: true });
     if (!updatedBlog) {
-      return res.status(404).json({ message: 'Blog not found' });
+       res.status(404).json({ message: 'Blog not found' });
     }
-    res.status(200).json({ message: 'Blog updated successfully', updatedBlog });
+    else {
+      res.status(200).json({ message: 'Blog updated successfully', updatedBlog });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -164,9 +173,11 @@ module.exports.editCategoryById = async (req, res, next) => {
 
     const updatedCategory = await Category.findByIdAndUpdate(categoryId, updateFields, { new: true });
     if (!updatedCategory) {
-      return res.status(404).json({ message: 'Category not found' });
+       res.status(404).json({ message: 'Category not found' });
     }
-    res.status(200).json({ message: 'Category updated successfully', updatedCategory });
+    else {
+      res.status(200).json({ message: 'Category updated successfully', updatedCategory });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -178,9 +189,11 @@ module.exports.updateUser = async (req, res, next) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true });
     if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+       res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).json({ message: 'User updated successfully', updatedUser });
+    else {
+      res.status(200).json({ message: 'User updated successfully', updatedUser });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -195,7 +208,7 @@ module.exports.postComment = async (req, res, next) => {
   try {
     const blog = await Blog.findById(blogId);
     if (!blog) {
-      return res.status(404).json({ message: 'Blog not found' });
+       res.status(404).json({ message: 'Blog not found' });
     }
 
     const newComment = {
@@ -219,12 +232,12 @@ module.exports.getCommentsByBlogId = async (req, res, next) => {
   try {
     const blog = await Blog.findById(blogId);
     if (!blog) {
-      return res.status(404).json({ message: 'Blog not found' });
+      res.status(404).json({ message: "Blog not found" });
+    } else {
+      res.status(200).json(blog.comments);
     }
-
-    res.status(200).json(blog.comments);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 };
