@@ -29,6 +29,17 @@ export const Pages = () => {
     fetchBlogs();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (blogs.length === 0) {
+    return <div>No categories found.</div>;
+  }
   return (
     <>
       <section className='blog'>
