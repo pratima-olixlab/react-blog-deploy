@@ -23,9 +23,10 @@ module.exports.login = (req, res, next) => {
   User.findOne({ email: email }).exec()
     .then((user) => {
       if (!user || !user.verifyPassword(password)) {
-        return res.status(401).send('Invalid email or password');
+        res.status(401).send('Invalid email or password'); // Modified response
+      } else {
+        res.status(200).json({ message: 'Login successful', user: { _id: user._id, username: user.username, email: user.email } }); // Modified response
       }
-      res.status(200).json({ message: 'Login successful', user: { _id: user._id, username: user.username, email: user.email } });
     })
     .catch((err) => {
       console.error(err);
