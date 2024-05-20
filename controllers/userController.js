@@ -19,7 +19,7 @@ module.exports.register = (req, res, next) => {
 }
 
 module.exports.login = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body; // Extract email and password from request body
   User.findOne({ email: email }).exec()
     .then((user) => {
       if (!user || !user.verifyPassword(password)) {
@@ -37,7 +37,7 @@ module.exports.postCategory = (req, res, next) => {
   console.log('Inside category function');
   var category = new Category();
   category.title = req.body.title;
-  category.cover = req.file ? req.file.path : null;
+  category.cover = req.file ? req.file.path : null; // Store image path if uploaded
   category.category = req.body.category;
   category.save()
     .then((docs) => {
@@ -120,28 +120,13 @@ module.exports.getCategoryById = (req, res, next) => {
 };
 
 module.exports.deleteBlogById = (req, res, next) => {
-  const blogId = req.params.id;
+  const blogId = req.params.id; // Extract the blog ID from request params
   Blog.findByIdAndDelete(blogId)
     .then(blog => {
       if (!blog) {
         return res.status(404).json({ message: 'Blog not found' });
       }
       res.status(200).json({ message: 'Blog deleted successfully' });
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send('Internal Server Error');
-    });
-};
-
-module.exports.deleteCategoryById = (req, res, next) => {
-  const categoryId = req.params.id;
-  Category.findByIdAndDelete(categoryId)
-    .then(category => {
-      if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
-      }
-      res.status(200).json({ message: 'Category deleted successfully' });
     })
     .catch(err => {
       console.error(err);
@@ -241,4 +226,19 @@ module.exports.getCommentsByBlogId = async (req, res, next) => {
     console.error(err);
     res.status(500).send('Internal Server Error');
   }
+};
+
+module.exports.deleteCategoryById = (req, res, next) => {
+  const categoryId = req.params.id; // Extract the category ID from request params
+  Category.findByIdAndDelete(categoryId)
+    .then(category => {
+      if (!category) {
+        return res.status(404).json({ message: 'Category not found' });
+      }
+      res.status(200).json({ message: 'Category deleted successfully' });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    });
 };
