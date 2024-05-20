@@ -150,7 +150,7 @@ module.exports.editBlogById = async (req, res, next) => {
       updateFields.cover = req.file.path;
     }
 
-    const updatedBlog = await Blog.findByIdAndUpdate(blogId, updateFields, { new: true });
+    const updatedBlog = Blog.findByIdAndUpdate(blogId, updateFields, { new: true });
     if (!updatedBlog) {
        res.status(404).json({ message: 'Blog not found' });
     }
@@ -171,7 +171,7 @@ module.exports.editCategoryById = async (req, res, next) => {
       updateFields.cover = req.file.path;
     }
 
-    const updatedCategory = await Category.findByIdAndUpdate(categoryId, updateFields, { new: true });
+    const updatedCategory = Category.findByIdAndUpdate(categoryId, updateFields, { new: true });
     if (!updatedCategory) {
        res.status(404).json({ message: 'Category not found' });
     }
@@ -187,7 +187,7 @@ module.exports.editCategoryById = async (req, res, next) => {
 module.exports.updateUser = async (req, res, next) => {
   const userId = req.params.id;
   try {
-    const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true });
+    const updatedUser = User.findByIdAndUpdate(userId, req.body, { new: true });
     if (!updatedUser) {
        res.status(404).json({ message: 'User not found' });
     }
@@ -206,7 +206,7 @@ module.exports.postComment = async (req, res, next) => {
   const userId = blogId;
 
   try {
-    const blog = await Blog.findById(blogId);
+    const blog = Blog.findById(blogId);
     if (!blog) {
        res.status(404).json({ message: 'Blog not found' });
     }
@@ -217,7 +217,7 @@ module.exports.postComment = async (req, res, next) => {
     };
 
     blog.comments.push(newComment);
-    await blog.save();
+    blog.save();
 
     res.status(201).json({ message: 'Comment added successfully', newComment });
   } catch (err) {
@@ -230,7 +230,7 @@ module.exports.getCommentsByBlogId = async (req, res, next) => {
   const blogId = req.params.id;
 
   try {
-    const blog = await Blog.findById(blogId);
+    const blog = Blog.findById(blogId);
     if (!blog) {
       res.status(404).json({ message: "Blog not found" });
     } else {
