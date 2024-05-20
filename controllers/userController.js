@@ -19,7 +19,7 @@ module.exports.register = (req, res, next) => {
 }
 
 module.exports.login = (req, res, next) => {
-  const { email, password } = req.body; // Extract email and password from request body
+  const { email, password } = req.body;
   User.findOne({ email: email }).exec()
     .then((user) => {
       if (!user || !user.verifyPassword(password)) {
@@ -37,7 +37,7 @@ module.exports.postCategory = (req, res, next) => {
   console.log('Inside category function');
   var category = new Category();
   category.title = req.body.title;
-  category.cover = req.file ? req.file.path : null; // Store image path if uploaded
+  category.cover = req.file ? req.file.path : null;
   category.category = req.body.category;
   category.save()
     .then((docs) => {
@@ -120,7 +120,7 @@ module.exports.getCategoryById = (req, res, next) => {
 };
 
 module.exports.deleteBlogById = (req, res, next) => {
-  const blogId = req.params.id; // Extract the blog ID from request params
+  const blogId = req.params.id;
   Blog.findByIdAndDelete(blogId)
     .then(blog => {
       if (!blog) {
@@ -135,7 +135,7 @@ module.exports.deleteBlogById = (req, res, next) => {
 };
 
 module.exports.deleteCategoryById = (req, res, next) => {
-  const categoryId = req.params.id; // Extract the category ID from request params
+  const categoryId = req.params.id;
   Category.findByIdAndDelete(categoryId)
     .then(category => {
       if (!category) {

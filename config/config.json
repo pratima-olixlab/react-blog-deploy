@@ -1,9 +1,9 @@
 {
-    "development": {
-        "PORT": 3000,
+    "development" : {
+        "PORT" : 5000,
         "MONGODB_URI": "mongodb://localhost:27017/mern-stack-react"
     },
-    "production": {
+    "production" : {
         "PORT": 80,
         "MONGODB_URI": "mongodb+srv://olixlab22:OlixLab1@cluster0.w9ceppl.mongodb.net/mern-stack-react"
     }
