@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://0.0.0.0:27017/mern-stack-react')
+mongoose.connect('mongodb+srv://olixlab22:OlixLab1@cluster0.w9ceppl.mongodb.net/mern-stack-react')
   .then(() => {
     console.log('MongoDB connection succeeded');
   })
