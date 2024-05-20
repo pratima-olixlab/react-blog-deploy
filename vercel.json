@@ -1,23 +1,31 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "api/index.js",
-            "use": "@vercel/node"
+      {
+        "src": "api/index.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "react-app-main/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "react-app-main/build"
         }
+      }
     ],
     "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "api/index.js"
-        },
-        {
-            "src": "/uploads/(.*)",
-            "dest": "api/uploads/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "react-app-main/build/$1"
-        }
+      {
+        "src": "/api/(.*)",
+        "dest": "api/index.js"
+      },
+      {
+        "src": "/uploads/(.*)",
+        "dest": "api/uploads/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "react-app-main/build/$1"
+      }
     ]
-}
+  }
+  
