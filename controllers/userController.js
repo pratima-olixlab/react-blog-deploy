@@ -241,3 +241,20 @@ module.exports.getCommentsByBlogId = async (req, res, next) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+module.exports.deleteCategoryById = (req, res, next) => {
+  const categoryId = req.params.id; // Extract the category ID from request params
+  Category.findByIdAndDelete(categoryId)
+    .then(category => {
+      if (!category) {
+         res.status(404).json({ message: 'Category not found' });
+      }
+      else {
+        res.status(200).json({ message: 'Category deleted successfully' });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    });
+};

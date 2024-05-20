@@ -14,6 +14,7 @@ router.get('/category', ctrlUser.getCategory);
 router.get('/blog/:id', ctrlUser.getBlogById);
 router.get('/category/:id', ctrlUser.getCategoryById);
 router.delete('/blog/:id', ctrlUser.deleteBlogById);
+router.delete('/category/:id', ctrlUser.deleteCategoryById);
 router.put('/blog/:id', upload.single('cover'), ctrlUser.editBlogById); // Use multer middleware for updating blog with new cover image
 router.put('/:id', ctrlUser.updateUser);
 router.post('/blog/:id/comment', ctrlUser.postComment);
